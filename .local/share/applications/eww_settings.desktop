@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=Eww System Settings;
-Exec=bash -c $XDG_DATA_HOME/applications/bin/eww_settings.sh
+Exec=eww_settings.sh
 Icon=systemsettings
 Type=Application
