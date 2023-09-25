@@ -1,0 +1,383 @@
+//reset everything from gtk 
+*{
+    all: unset;
+    font-family: "Torus Pro", "Torus";
+    font-weight: 600;
+    font-size: 14px;
+}
+//basic colors
+$bg:        #2e3440;
+$bgtrans:   rgba(46, 52, 64, 0.4);
+$bgtrans2:   rgba(46, 52, 64, 0.2);
+$fg:        #eceff4;
+
+//polar night
+$polar0:    #2e3440;
+$polar1:    #3b4252;
+$polar2:    #434c5e;
+$polar3:    #4c566a;
+
+//snow storm
+$snow0:     #eceff4;
+$snow1:     #e4e9f0;
+$snow2:     #d8dee9;
+
+//frost -- l- prefix means light, d- dark
+$dcyan:     #8fbcbb;
+$lcyan:     #88c0d0;
+
+$lblue:     #81a1c1;
+$dblue:     #5e81ac;
+
+//aurora
+$pink:      #b48ead;
+$red:       #bf616a;
+$orange:    #d08770;
+$yellow:    #ebcb8b;
+$green:     #a3be8c;
+$radius: 12px;
+$small: 0px 5px 0px 3px;
+$large: 2px 12px 2px 9px;
+$xlarge: 2px 17px 2px 13px;
+
+
+
+check {
+    border-radius: 12px;
+    min-width: 14px;
+    min-height: 14px;
+    background: $polar3;
+    margin-right: 0.5rem;
+}
+
+check:checked {
+    background: $dcyan;
+}
+menu {
+    background-color: $polar2;
+    border-radius: 16px;
+    border: 3px solid $polar3;
+    padding: 1rem 0;
+}
+
+menu menu {
+    border-radius: 8px;
+    padding: 2px;
+}
+menu separator {
+    margin-left: 12px;
+    margin-right: 12px;
+    margin: 6px;
+    min-height: 2px;
+    border-radius: 99px;
+    // background-color: $polar3;
+    background-color: rgba(76, 86, 106, 0.7)
+}
+menu > menuitem {
+    background-color: transparent;
+    margin-left: 6px;
+    margin-right: 6px;
+    padding: 3px 5px 3px 5px;
+}
+menu > menuitem:disabled {
+    background-color: transparent;
+    color: $polar3;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+menu > menuitem:hover {
+    background: rgba(136, 192, 208, 0.2);
+    border-radius: 8px;
+}
+
+menu > menuitem check:checked ~ label {
+    color: $dcyan;
+}
+
+menubar > menuitem {
+    padding: 1px 14px 1px 10px;
+    border-radius: 12px;
+    background-color: $polar2;
+    margin: 6px;
+    color: $snow2;
+}
+arrow.right {
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+
+  border-left: 7px solid $snow2;
+}
+
+arrow.left {
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+
+  border-right: 7px solid $snow2;
+}
+
+tooltip{
+    background-color: $polar2;
+    border: 3px solid $polar3;
+    color: $snow2;
+    border-radius: 12px;
+}
+tooltip label{
+    color: $snow2;
+    font-size: 14px;
+}
+
+.leftbox {
+    background-color: $polar1;
+    margin-left: 0rem;
+    border-radius: 0px 0px 16px 0px;
+    border-right: 2px solid $green;
+    border-bottom: 2px solid $polar2;
+    min-height: 40px;
+}
+.ws-active, .ws-inactive, .ws-special, .ws-add{
+    padding: 2px 16px 2px 12px;
+    border-radius: 12px;
+    background-color: $polar2;
+    margin: 6px;
+    color: $snow2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+}
+.ws-inactive:hover{
+    background-color: $polar3
+}
+.ws-active{
+    background-color: $dcyan;
+    color: $bg;
+}
+.ws-active:hover{
+    background-color: mix($dcyan, $polar3, 70)
+}
+.ws-add{
+    background-color: $green;
+    color: $bg;
+}
+.ws-add:hover{
+    background-color: mix($green, $polar3, 70)
+}
+.ws-special{
+    background-color: $pink;
+    color: $bg;
+}
+.ws-special:hover{
+    background-color: mix($pink, $polar3, 70)
+}
+
+.winbox-normal, .winbox-floating {
+    background-color: $polar1;
+    border-radius: 0px 0px 16px 16px;
+    border-left :2px solid $polar2;
+    border-right :2px solid $polar2;
+    margin-left: 18px;
+}
+.winbox-floating{
+    border-bottom: 2px solid $green;
+}
+.winbox-normal{
+    border-bottom: 2px solid $dcyan;
+}
+.winicon {
+    padding: 4px 18px 4px 14px;
+    border-radius: 12px;
+    background-color: $polar2;
+    margin: 6px;
+    color: $snow2;
+    color: $pink;
+}
+.winlabel {
+    padding: 4px 16px 4px 12px;
+    border-radius: 12px;
+    background-color: $polar2;
+    margin: 6px;
+    color: $snow2;
+}
+// .winbutton-float,.winbutton-off,.winbutton-maximized,.winbutton-regular,.winbutton-pinned,.winbutton-na,.winbutton-close,.winbutton-blue,.winbutton-on{
+//     padding: 1px 16px 1px 12px;
+//     border-radius: 12px;
+//     background-color: $polar2;
+//     margin: 6px;
+//     color: $snow2;
+//     transition: background-color 0.3s ease, color 0.3s ease;
+//
+//
+// }
+// .winbutton-off:hover,.winbutton-regular:hover{
+//     background-color: $polar3;
+// }
+// .winbutton-float {
+//     background-color: $green;
+//     color: $bg;
+// }
+// .winbutton-float:hover {
+//     background-color: mix($green, $polar3, 70)
+// }
+// .winbutton-on {
+//     background-color: $dcyan;
+//     color: $bg;
+// }
+// .winbutton-on:hover {
+//     background-color: mix($dcyan, $polar3, 70)
+// }
+// .winbutton-blue {
+//     background-color: $dblue;
+//     color: $bg;
+// }
+// .winbutton-blue:hover {
+//     background-color: mix($dblue, $polar3, 70)
+// }
+// .winbutton-maximized{
+//     background-color: $orange;
+//     color: $bg;
+// }
+// .winbutton-maximized:hover {
+//     background-color: mix($orange, $polar3, 70)
+// }
+// .winbutton-pinned {
+//     background-color: $yellow;
+//     color: $bg;
+// }
+// .winbutton-pinned:hover {
+//     background-color: mix($yellow, $polar3, 70)
+// }
+// .winbutton-na{
+//     background-color: $polar1;
+//     color: $snow2;
+// }
+// .winbutton-close{
+//     background-color: $red;
+//     color: $bg;
+// }
+// .winbutton-close:hover{
+//     background-color: mix($red, $polar3, 70)
+// }
+.rightbox{
+    background-color: $polar1;
+    margin-right: 0rem;
+    border-radius: 0px 0px 0px 16px;
+    border-left: 2px solid $green;
+    border-bottom: 2px solid $polar2;
+}
+
+.notifbox{
+    padding: 1px 16px 1px 12px;
+    border-radius: 12px;
+    background-color: $polar2;
+    margin: 6px;
+    color: $snow2;
+}
+.notif-active,.notif-inactive,.notif-active-muted,.notif-inactive-muted{
+    padding: 0px 5px 0px 8px;
+}
+.notif-active,.notif-active-muted{
+    color: $red;
+    margin-left: 6px;
+}
+.notif-inactive-muted,.notif-inactive{
+    color: $snow2;
+}
+// .infobox{
+//     padding: 2px 16px 2px 12px;
+//     border-radius: 12px;
+//     background-color: $polar1;
+//     margin: 6px;
+//     color: $snow2;
+// }
+.menubox-on,.menubox-off{
+    padding: 1px 16px 1px 12px;
+    background-color: $polar2;
+    border-radius: 12px;
+    // margin-left: 3px;
+    // margin-right: 3px;
+    margin: 6px;
+
+}
+.menubox-on{
+    background-color: $polar3
+}
+.sidebar-on,.sidebar-off{
+    padding: 1px 16px 1px 12px;
+    border-radius: 12px;
+}
+.sidebar-on{
+    background-color: $polar3;
+    border-radius: 12px;
+    // margin-left: 3px;
+    // margin-right: 3px;
+    margin: 6px;
+}
+.hover-box,.hover-box-on{
+    padding: 1px 16px 1px 12px;
+    border-radius: 12px;
+    margin: 6px;
+}
+.hover-box:hover,.hover-box-on:hover{
+    background-color: $polar2;
+    border-radius: 12px;
+}
+.hover-box-on{
+    background-color: $polar3;
+}
+.volslider trough, .volslider-muted trough{
+    all: unset;
+    min-height: 8px;
+    min-width: 12rem;
+    border-radius: 12px;
+    background-color: $polar3;
+    margin-left: 6px;
+}
+.volslider-muted trough {
+    background-color: $polar2
+}
+.volslider trough highlight{
+    background-color: $dcyan;
+    border-radius: 8px;
+}
+.volslider-muted trough highlight{
+    background-color: $polar3;
+    border-radius: 8px;
+}
+.app_launcher_popup{
+    background-color: $bgtrans2;
+    border-radius: 16px;
+}
+.app_button{
+    margin:20px;
+    border-radius: 12px;
+    padding: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.app_button:hover{
+    background-color: $bgtrans2;
+}
+.app_button:active{
+    background-color: $bgtrans;
+}
+.app_launcher_header{
+    background-color: $polar1;
+    border-radius: 16px 16px 0px 0px;
+    min-height: 40px;
+}
+.popup_box{
+    background-color: $polar2;
+    border-radius: 24px;
+    padding: 8px;
+    border: 2px solid $polar3;
+}
+.popup_menu_item,.popup_menu_item-inac{
+    border-radius: 16px;
+    padding: 0.1rem 1rem 0.1rem 0.8rem;
+    min-height: 2rem;
+    color: $snow2;
+}
+.popup_menu_item-inac{
+    color: $polar3;
+}
+.popup_menu_item:hover{
+    background-color: $polar3;
+}

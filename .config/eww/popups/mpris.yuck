@@ -1,0 +1,29 @@
+(defpoll playerstate :interval "0.1s" "playerctl status")
+(defpoll playerdata :interval "0.1s" 'playerctl metadata --format \'{"player":"{{playerName}}"}\'')
+(defpoll title :interval "0.1s" "pamixer --get-mute --default-source")
+(defwindow mpris_popup
+    :geometry (geometry :x 0
+                        :y "10%"
+                        :width "6%"
+                        :height "16%"
+                        :anchor "center bottom"
+                )
+    :stacking "overlay"
+    :namespace "eww_popup"
+    (mpris)
+)
+
+(defwidget mpris []
+(box :orientation "v"
+:class "popup-box"
+
+(circular-progress :class "${playerstate == "Paused" ? "circle-mute" : "circle-unmute"}" :value 100 :thickness 8
+(box :space-evenly false :class "circlebox-smaller" :orientation "v"
+(label :text "${playerstate == "Paused" ? " " : ""}" :class "${playerstate == "Paused" ? "icon-mute" : "icon-unmute"}" :vexpand true)
+(label :text "${playerdata.player}" :class "text")
+)
+
+
+)))
+
+

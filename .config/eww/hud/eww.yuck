@@ -1,0 +1,44 @@
+(include "edge.yuck")
+
+
+(include "footer.yuck")
+
+(include "system.yuck")
+
+(defwidget empty []
+'')
+
+(defwindow hud
+        :geometry (geometry :x "0px"
+                            :y "1px"
+                            :width "100%"
+                            :height "32px"
+                            :anchor "bottom center"
+                    )
+        :stacking "overlay"
+        :exclusive "false"
+        :namespace "eww_bar_bottom"
+        :hexpand true
+        :vexpand false
+        (window)
+)
+
+(defwidget window []
+    (box :hexpand true :vexpand true :space-evenly false :class "window" :valign "end" :orientation "v"
+    ;; (hud)
+    (footer)
+
+
+    )
+)
+(include "notif.yuck")
+(defwidget hud []
+    (centerbox
+    (notifications)
+    (empty)
+    (system)
+
+
+
+    )
+)

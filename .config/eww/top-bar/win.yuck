@@ -1,0 +1,50 @@
+(defvar window "[]")
+(defvar launcher_open false)
+(defwidget window []
+    (eventbox :onclick "bin/open_window_popup.sh"
+              :onmiddleclick "hyprctl dispatch killactive"
+        (box :space-evenly false  :tooltip "Type: ${window[0].legacy ? "Xwayland" : "Wayland native"}
+Pinned: ${window[0].pin ?: "No Window"}
+PID: ${window[0].pid ?: "No Application"}
+App: ${window[0].class ?: "No Application"}
+Address: ${window[0].id ?: "No Window"}
+Mapped: ${window[0].shown ?: "No Window"}
+Hidden: ${window[0].hidden ?: "No Window"}
+Workspace: ${window[0].wsname ?: "Empty"}
+Fullscreen: ${window[0].fullscreen ?: "true"}"
+:class "winbox-${window[0].float ? "floating" : "normal"}"
+            (label :class "winicon" :text "${window[0].icon ?: ""}")
+            (label :text "${window[0].legacy ? "(X11) " : ""}${window[0].title ?: "No Window Selected"}" :limit-width 40 :class "winlabel" :tooltip "${window[0].title ?: "No Selected Window"}")
+        )
+    )
+)
+
+
+(defwidget controls []
+    (box :orientation "v" :class "popup_box" :width 160 
+    (label :class "popup_menu_item" :text "${window[0].class}")
+        (button :class "popup_menu_item" :timeout "16s" :onclick "hyprctl dispatch togglefloating&&${EWW_CMD} close window_controls" "${window[0].float ? "Unfloat" : "Float"}")
+        (button :class "popup_menu_item" :timeout "16s" :onclick "hyprctl dispatch fullscreen 0&&${EWW_CMD} close window_controls" "${window[0].fullscreen ? "Unfullscreen" : "Fullscreen"}")
+        (button :class "popup_menu_item" :timeout "16s" :onclick "hyprctl dispatch fullscreen 1&&${EWW_CMD} close window_controls" "${window[0].fullscreen ? "Unmaximize" : "Maximize"}") 
+        (button :class "popup_menu_item${window[0].float ? "" : "-inac"}" :timeout "16s" :onclick "hyprctl dispatch pin&&${EWW_CMD} close window_controls" "${window[0].pin ? "Unpin" : "Pin"}") 
+        (button :class "popup_menu_item" :timeout "16s" :onclick "hyprctl dispatch killactive&&${EWW_CMD} close window_controls" "Close")
+
+    )
+)
+
+(defwindow window_controls 
+        :monitor 0
+        :geometry (geometry :x "0px"
+                            :y "1%"
+                            :width "1%"
+                            :height "32px"
+                            :anchor "top center"
+                    )
+        :stacking "overlay"
+        :exclusive "false"
+        :namespace "eww_bar_top"
+        :hexpand false
+        :vexpand false
+    (controls)
+)
+

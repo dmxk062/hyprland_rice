@@ -1,0 +1,414 @@
+//reset everything from gtk 
+*{
+    all: unset;
+    font-family: "Torus Pro", "Torus";
+    font-weight: 600;
+    font-size: 14px;
+}
+//basic colors
+$bg:        #2e3440;
+$bgtrans:   rgba(46, 52, 64, 0.4);
+// $bgtrans2:   rgba(46, 52, 64, 0.67);
+$bgtrans2: rgba(67, 76, 94, 0.3);
+// $bgtrans2:   #2e3440;
+$fg:        #eceff4;
+
+//polar night
+$polar0:    #2e3440;
+// $polar1:   rgba(46, 52, 64, 0.9);
+$polar1:    #3b4252;
+$polar2:    #434c5e;
+$polar3:    #4c566a;
+
+//snow storm
+$snow0:     #eceff4;
+$snow1:     #e4e9f0;
+$snow2:     #d8dee9;
+
+//frost -- l- prefix means light, d- dark
+$dcyan:     #8fbcbb;
+$lcyan:     #88c0d0;
+
+$lblue:     #81a1c1;
+$dblue:     #5e81ac;
+
+//aurora
+$pink:      #b48ead;
+$red:       #bf616a;
+$orange:    #d08770;
+$yellow:    #ebcb8b;
+$green:     #a3be8c;
+$radius: 12px;
+$small: 0px 5px 0px 3px;
+$large: 2px 12px 2px 9px;
+$xlarge: 2px 17px 2px 13px;
+
+@function fade($color){
+    @return mix($color, $polar3, 70)
+}
+
+check {
+    border-radius: 12px;
+    min-width: 14px;
+    min-height: 14px;
+    background: $polar3;
+    margin-right: 0.5rem;
+}
+
+check:checked {
+    background: $dcyan;
+}
+menu {
+    background-color: $polar2;
+    border-radius: 16px;
+    border: 3px solid $polar3;
+    padding: 1rem 0;
+}
+
+menu menu {
+    border-radius: 8px;
+    padding: 2px;
+}
+menu separator {
+    margin-left: 12px;
+    margin-right: 12px;
+    margin: 6px;
+    min-height: 2px;
+    border-radius: 99px;
+    // background-color: $polar3;
+    background-color: rgba(76, 86, 106, 0.7)
+}
+menu > menuitem {
+    background-color: transparent;
+    margin-left: 6px;
+    margin-right: 6px;
+    padding: 3px 5px 3px 5px;
+}
+menu > menuitem:disabled {
+    background-color: transparent;
+    color: $polar3;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+menu > menuitem:hover {
+    background: rgba(136, 192, 208, 0.2);
+    border-radius: 8px;
+}
+
+menu > menuitem check:checked ~ label {
+    color: $dcyan;
+}
+
+menubar > menuitem {
+    padding: 1px 14px 1px 10px;
+    border-radius: 12px;
+    background-color: $polar2;
+    margin: 6px;
+    color: $snow2;
+}
+arrow.right {
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+
+  border-left: 7px solid $snow2;
+}
+
+arrow.left {
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+
+  border-right: 7px solid $snow2;
+}
+
+tooltip{
+    background-color: $polar2;
+    border: 2px solid $polar3;
+    color: $snow2;
+    border-radius: 12px;
+    padding: 2px 16px 2px 12px;
+}
+tooltip label{
+    color: $snow2;
+    font-size: 16px;
+}
+
+scrollbar{
+    background-color: transparent;
+    transition: background-color 75ms cubic-bezier(0, 0, 0.2, 1);
+}
+scrollbar slider{
+    background-color: $snow0;
+    min-width: 6px;
+    min-height: 2px;
+    border-radius: 12px;
+    transition: background-color 75ms cubic-bezier(0, 0, 0.2, 1);
+    background-clip: padding-box;
+
+}
+scrollbar slider:hover{
+    background-color: fade($snow2);
+}
+.button,.button-active,.button-warn,.button-s,.button-nice,.button-attention,.button-highlight,.button-calm,.button-special{
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 1px 16px 1px 12px;
+    border-radius: 12px;
+    background-color: $polar2;
+    margin: 6px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    color: $snow0;
+    min-height: 40px;
+}
+.button-s{
+    padding: 1px 14px 1px 12px;
+    min-width: 16px;
+}
+.button:hover,.button-s:hover{
+    background-color: $polar3;
+}
+.button-attention{
+    background-color: $orange;
+    color: $polar0;
+}
+.button-attention:hover{
+    background-color: fade($orange);
+}
+.button-highlight{
+    background-color: $yellow;
+    color: $polar0;
+}
+.button-highlight:hover{
+    background-color: fade($yellow)
+}
+.button-calm{
+    background-color: $dblue;
+    color: $polar0
+}
+.button-calm:hover{
+    background-color: fade($dblue)
+}
+.button-special{
+    background-color: $pink;
+    color: $polar0;
+}
+.button-special:hover{
+    background-color: fade($pink)
+}
+.button-active{
+    background-color: $dcyan;
+    color: $polar0;
+}
+.button-active:hover{
+    background-color: fade($dcyan)
+}
+.button-warn{
+    background-color: $red;
+    color: $polar0;
+}
+.button-warn:hover{
+    background-color: fade($red)
+}
+.button-nice{
+    background-color: $green;
+    color: $polar0;
+}
+.button-nice:hover{
+    background-color: fade($green);
+}
+
+.window{
+    background-color: $bgtrans2;
+    border-radius: 24px 24px 0px 0px;
+}
+.footer{
+    background-color: $polar0;
+    padding: 8px;
+}
+.footer_text{
+    color: $snow2;
+    padding: $xlarge;
+}
+.inlay{
+    background-color:  $polar1;
+    min-height: 24px;
+    padding: 2px 16px 2px 12px;
+    border-radius: 16px;
+}
+.inlay_text{
+    font-size:16px;
+    color: $snow2;
+    padding: $xlarge;
+}
+.title{
+    color: $snow2;
+    padding: $xlarge;
+    font-size: 20px;
+}
+.sidebar{
+    background-color: $polar1;
+    border-top: 2px solid $polar2;
+    border-radius: 0px 0px 0px 24px;
+    padding: 8px;
+}
+.sidebar_extension{
+    background-color: $polar1;
+    border-top: 2px solid $polar2;
+    padding: 8px;
+}
+
+.section_box{
+    border-radius: 12px;
+    // margin-left: 4px;
+    // margin-right: 4px;
+}
+.section_inside{
+    margin: 4px;
+}
+
+
+.card{
+    background-color: $polar1;
+    border-radius: 12px;
+    padding: $xlarge;
+    margin-top: 8px;
+    border: 2px solid $polar3;
+    // box-shadow: 5px 5px 10px rgba(0,0,0,0.1)
+    // box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 12px;
+
+
+}
+.card-label{
+    color: $snow0;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: $polar3;
+    border-radius: 12px;
+    padding: 8px 4px 8px 4px;
+    margin-top: 2px;
+}
+.icon_launcher{
+    margin: 4px;
+    border-radius: 12px;
+    padding: 2px;
+}
+.icon_launcher:hover{
+    background-color: $polar3;
+}
+.mpris_button{
+    border-radius: 12px;
+    padding: 2px 16px 2px 12px;
+    margin-left: 16px;
+    margin-right: 22px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+.mpris_button:hover{
+    background-color: $bgtrans;
+}
+.slider trough, .slider-small trough, .slider-large trough, .slider-yellow trough, .slider-red trough, .slider-green trough, .slider-orange trough,.slider-cyan trough, .slider-blue trough{
+    all:unset;
+    min-height: 6px;
+    min-width: 16rem;
+    border-radius: 12px;
+    margin: 2px;
+    background-color: $polar3;
+}
+.slider-small trough{
+    min-width: 12rem;
+}
+.slider-large trough{
+    min-width: 28rem;
+}
+.slider trough highlight, .slider-small trough highlight, .slider-large trough highlight, .slider-yellow trough highlight, .slider-red trough highlight, .slider-green trough highlight, .slider-orange trough highlight, .slider-cyan trough highlight, .slider-blue trough highlight{
+    background-color: $dcyan;
+    border-radius: 12px;
+}
+.slider-yellow trough highlight{
+    background-color: $yellow;
+}
+.slider-green trough highlight{
+    background-color: $green;
+}
+.slider-orange trough highlight{
+    background-color: $orange;
+}
+.slider-red trough highlight{
+    background-color: $red;
+}
+.slider-cyan trough highlight{
+    background-color: $lcyan;
+}
+.slider-blue trough highlight{
+    background-color: $dblue;
+}
+.sliderbox{
+    padding: 16px;
+    background-color: $polar2;
+    border-radius: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.notif,.notif-active,.notif-important,.notif-active-important{
+    background-color: $polar2;
+    border-radius: 12px;
+    padding: $xlarge;
+    margin-top: 8px;
+    border: 2px solid $polar3;
+}
+.notif-important{
+    border-right: 2px solid $red;
+}
+.notif-active{
+    border: 2px solid $dcyan;
+}
+.notif-active-important{
+    border: 2px solid $red
+}
+
+.notif-button{
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 1px 16px 1px 12px;
+    border-radius: 12px;
+    background-color: $polar3;
+    margin: 3px;
+    color: $snow0;
+    min-height: 30px;
+}
+.notif-button:hover{
+    background-color: fade($polar2);
+}
+.notif_label,.notif_label1,.notif_label2,.notif_label3{
+    font-size:14px;
+    color: $snow2;
+    padding: $large;
+}
+.notif_label0{
+    color: $green
+}
+.notif_label1{
+    color: $yellow
+}
+.notif_label2{
+    color: $red
+}
+.system_overview{
+    background-color: $polar1;
+    padding: 8px;
+    border-radius: 24px 0px 0px 24px;
+    border: 2px solid $polar3;
+}
+.notifcenter{
+    background-color: $polar1;
+    padding: 8px;
+    border-radius: 0px 24px 24px 0px;
+    border: 2px solid $polar3;
+}
+.sliderbox_overview{
+    padding: 16px;
+    border-radius: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: $polar2;
+}

@@ -1,0 +1,18 @@
+;; (include "tray.yuck")
+(defvar apps "[]")
+(defwidget launcher_icon [exec icon tooltip]
+    (button :onclick "${exec}& disown" :tooltip "${tooltip}" :class "icon_launcher"
+        (image :path "${icon}" :image-height 48 :image-width 48)
+    )
+
+)
+(defwidget launcher []
+    (box :space-evenly false :spacing 16
+    (box :orientation "h" :class "inlay"
+        (for app in apps
+            (launcher_icon :exec "${app.exec}" :icon "${app.image}" :tooltip "${app.description}")
+        )
+    )
+    ;; (tray_button)
+    )
+)

@@ -1,0 +1,132 @@
+* {
+    all: unset;
+    font-family:"Torus",sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 0px 3px 0px 3px;
+    margin: 1px 3px 1px 3px;
+}
+
+$bg:        #2e3440;
+$bgtrans:   rgba(46, 52, 64, 0.5);
+$bgtrans2:   rgba(46, 52, 64, 0.4);
+$fg:        #eceff4;
+
+//polar night
+$polar0:    #2e3440;
+$polar1:    #3b4252;
+$polar2:    #434c5e;
+$polar3:    #4c566a;
+
+//snow storm
+$snow0:     #eceff4;
+$snow1:     #e4e9f0;
+$snow2:     #d8dee9;
+
+//frost -- l- prefix means light, d- dark
+$dcyan:     #8fbcbb;
+$lcyan:     #88c0d0;
+
+$lblue:     #81a1c1;
+$dblue:     #5e81ac;
+
+//aurora
+$pink:      #b48ead;
+$red:       #bf616a;
+$orange:    #d08770;
+$yellow:    #ebcb8b;
+$green:     #a3be8c;
+$radius: 48px;
+$small: 0px 5px 0px 3px;
+$large: 2px 12px 2px 9px;
+$xlarge: 2px 17px 2px 13px;
+
+.volslider trough, .volslider-muted trough, .brightslider trough,.inslider trough, .inslider-muted trough{
+    all: unset;
+    min-height: 12px;
+    min-width: 20rem;
+    border-radius: 8px;
+    background-color: $polar2;
+    margin-left: 6px;
+    margin: 0px
+}
+.volslider trough highlight{
+    background-color: $dcyan;
+    border-radius: 8px;
+}
+.volslider-muted trough highlight{
+    background-color: $polar3;
+    border-radius: 8px;
+}
+.inslider trough highlight{
+    background-color: $dcyan;
+    border-radius: 8px;
+}
+.inslider-muted trough highlight{
+    background-color: $polar3;
+    border-radius: 8px;
+}
+.popup-box {
+    background-color: $polar1;
+    border-radius: 24px;
+    border: 2px solid $polar3;
+
+    // border: 3px solid $polar3;
+}
+.icon-mute,.icon-unmute,.icon-bright {
+    font-size: 64px;
+}
+.icon-mute {
+    color: $polar3;
+}
+.icon-unmute {
+    color: $dcyan;
+}
+.icon-bright {
+    color: $yellow;
+}
+.volicon, .volicon-muted{
+    border-radius: 16px;
+    // background-color: $polar2;
+    padding: $xlarge;
+    margin: 8px;
+    font-size: 40;
+}
+.volicon {
+    color: $snow2
+}
+.volicon-muted {
+    color: $polar3;
+}
+.vollabel{
+    border-radius: 16px;
+    // background-color: $polar2;
+    padding: $xlarge;
+    margin: 8px;
+    font-size: 24px;
+    min-width: 5rem;
+}
+.circlebox {
+    margin: 64px;
+}
+.circlebox-smaller {
+    margin: 48px;
+}
+.text {
+    color: $snow2;
+}
+
+
+.circle-mute,.circle-unmute,.circle-bright {
+    min-height: 40px;
+    background-color: $polar2;  
+}
+.circle-mute {
+    color: $polar3;
+}
+.circle-unmute {
+    color: $dcyan;
+}
+.circle-bright {
+    color: $yellow;
+}

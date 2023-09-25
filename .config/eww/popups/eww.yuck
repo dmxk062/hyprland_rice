@@ -1,0 +1,6 @@
+(include "in.yuck")
+(include "out.yuck")
+(include "mpris.yuck")
+(include "bright.yuck")
+
+

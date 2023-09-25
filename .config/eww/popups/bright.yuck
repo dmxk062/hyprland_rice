@@ -1,0 +1,24 @@
+(defpoll brightness :interval "0.1s" "light -G")
+(defwindow bright_popup
+    :geometry (geometry :x 0
+                        :y "10%"
+                        :width "6%"
+                        :height "16%"
+                        :anchor "center bottom"
+                )
+    :stacking "overlay"
+    :namespace "eww_popup"
+    (bright)
+)
+
+(defwidget bright []
+(box :orientation "v"
+:class "popup-box"
+(circular-progress :class "circle-bright" :value "${brightness}" :thickness 8
+(box :space-evenly false :class "circlebox" :orientation "v"
+(label :text "󰛨  " :class "icon-bright" :vexpand true)
+(label :text "${round(brightness,0)}%" :class "text")
+)
+
+
+)))

@@ -1,0 +1,17 @@
+(deflisten workspaces :initial "[]" "scripts/ws.sh")
+(deflisten activeworkspace :initial "0" "scripts/ws.sh a")
+
+
+(defwidget workspaces []
+(box :space-evenly false
+(box :space-evenly false :hexpand false
+      (label :text "${workspaces}${activeworkspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.name}"
+          (box :class "workspace-entry ${workspace.active == 1 ? "wsactive" : "wsinactive"}"
+            (label :text "${workspace.icon ?: workspace.name}")
+            )
+        )
+    )
+    )
+))

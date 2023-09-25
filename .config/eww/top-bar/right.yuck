@@ -1,0 +1,59 @@
+(defvar mute_out "") ;; ouput mute state
+(defvar mute_in "")
+(defvar volume_out 0)
+(defvar volume_in 0)
+(defvar active_sink '{}')
+(defvar active_source '{}')
+
+(defvar show_out_slider false)
+(defvar show_in_slider false)
+
+
+(defvar notif-count 0)
+(defvar notifs "[]")
+(defvar hide-notif-popups false )
+
+(include "clock.yuck")
+
+
+
+
+
+
+
+(defwidget quick_info []
+(box :space-evenly false :class "infobox"
+
+(box :class "${mute_out == true ? "menubox-off" :"menubox-on"}" :space-evenly false :spacing 0
+(button :timeout "16s" :onclick "../settings/bin/aux.sh toggle-mute out" :onrightclick ""  "${mute_out ? active_sink.icon.muted : active_sink.icon.unmuted}  ${volume_out}%")
+)
+
+(box :class "${mute_in == true ? "menubox-off" :"menubox-on"}" :space-evenly false :spacing 0
+(button   :timeout "16s" :onclick "../settings/bin/aux.sh toggle-mute in" :onrightclick "" "${mute_in ? active_source.icon.muted : active_source.icon.unmuted}  ${volume_in}%")
+)
+)
+)
+
+
+(defvar sidebar false)
+
+(defwidget system_button []
+(button :tooltip "Show/Hide System Overview" :class "menubox-off" :onclick "eww -c /home/dmx/.config/hud open system --screen 0&&eww -c /home/dmx/.config/eww/hud update system_overview_shown=true" :timeout "128s" ""))
+
+
+
+
+
+
+(defwidget tray []
+(box :class "traybox" 
+(systray :pack_direction "ltr")))
+(defwidget right [] 
+(box :space-evenly false :halign "end"
+(box :space-evenly false :class "rightbox"
+(tray)
+(clock)
+(quick_info)
+;; (system_button)
+
+)))

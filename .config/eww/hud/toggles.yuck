@@ -1,0 +1,22 @@
+(defvar mute_out false)
+(defvar mute_in false)
+(defvar osk false)
+(defvar power_expand false)
+(defwidget toggles []
+    (box :orientation "h" :space-evenly false :halign "start" :hexpand true
+        (button :class "button" :onclick "${EWW_CMD} update power_expand=${power_expand ? "false":"true"}" "${power_expand ? "  " : " "}")
+        (revealer :reveal power_expand :transition "slideright"
+        (box :orientation "v" :valign "center"
+            (box :orientation "h" :space-evenly false  
+                (button :class "button-warn" :onclick "bin/shutdown.sh off& disown" :timeout "16s" :tooltip "Power Off" "") 
+                (button :class "button-attention" :onclick "bin/shutdown.sh logout& disown" :timeout "16s" :tooltip "Logout to the TTY" "󰍃") 
+                (button :class "button-highlight" :onclick "sleep 0.3&&bin/shutdown.sh lock true& disown" :tooltip "Lock the Screen" :timeout "16s" "") 
+                (button :class "button-nice" :onclick "bin/shutdown.sh reboot& disown" :tooltip "Reboot" :timeout "16s" "") 
+                (button :class "button-calm" :onclick "bin/shutdown.sh suspend& disown" :tooltip "Suspend to Memory" :timeout "16s" "󰤄") 
+                (button :class "button-special" :onclick "bin/shutdown.sh uefi& disown" :tooltip "Reboot into the Firmware Interface" :timeout "16s" "󰘚") 
+            )
+        ))
+        (button :class "button${osk ? "-active" : ""}" :timeout "16s" :onclick "../settings/bin/input.sh osk" "${osk ? "󰌌" : "󰌐"}    On Screen Keyboard")
+        ;; (button :class "button" :timeout "16s" :onclick "sleep 0.3&&eww -c $HOME/.config/eww/settings open settings --screen 0& disown" "    Settings")
+    )
+)

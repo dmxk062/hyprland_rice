@@ -1,0 +1,33 @@
+(defvar outvol 0)
+(defvar outmute false)
+(defpoll outputsink :interval "5s" "../panel/bin/sinksource.sh list sink|jq '.[]|select(.active)'")
+(defwindow out_popup
+    :geometry (geometry :x 0
+                        :y "10%"
+                        :width "1%"
+                        :height "4%"
+                        :anchor "center bottom"
+                )
+    :stacking "overlay"
+    :namespace "eww_popup"
+    (output)
+)
+
+(defwidget output []
+(box :space-evenly false
+:class "popup-box"
+;; (circular-progress :class "${outmute ? "circle-mute" : "circle-unmute"}" :value "${outvol}" :thickness 8
+;; (box :space-evenly false :class "circlebox" :orientation "v"
+;; (label :text "${outmute || outvol == 0 ? "󰓄 " : "󰓃"}" :class "${outmute ? "icon-mute" : "icon-unmute"}" :vexpand true)
+;; (label :text "${outvol}%" :class "text")
+;; )
+;;
+;;
+;; )
+(label :text "${outmute ? "󰝟" : (outvol > 70 ? "󰕾" : ( outvol > 33 ? "󰖀" : "󰕿"))}" :class "volicon${outmute ? "-muted" : ""}")
+(box :orientation "v"
+(label :text "Out: ${outputsink.name}" :limit-width 20)
+(scale :value "${outvol}" :class "volslider${outmute ? "-muted" : ""}")
+)
+(label :text "${outvol}%" :class "vollabel")
+))

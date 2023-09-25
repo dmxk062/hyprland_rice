@@ -1,0 +1,46 @@
+(defwidget tray [] ;; systray
+ (systray :pack_direction "ltr"))
+
+
+
+(defwidget right []
+	(box	:orientation "h" 
+			:space-evenly false 
+            :halign "end"
+(systray)
+(clock)
+(sidebar-button)
+))
+
+
+
+
+(defwidget bar []
+	(centerbox :class "bar" 
+		 :orientation "h" 
+		 :vexpand "false" 
+		 :hexpand "false"
+         :space-evenly false
+(workspaces)
+(window)
+(right)
+    )
+)
+
+
+(defwindow bar
+           :monitor 0
+           :geometry (geometry :x "4px"
+                               :y "4px"
+                               :width "99%"
+                               :height "24px"
+                               :anchor "top center")
+           :stacking "fg"
+           :exclusive "true"
+           :wm-ignore false
+           :namespace "eww_dmx_bar"
+           :hexpand "false"
+           :vexpand "false"
+        (bar)
+)
+

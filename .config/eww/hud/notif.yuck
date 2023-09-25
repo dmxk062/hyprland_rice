@@ -1,0 +1,59 @@
+(defvar notifs "[]")
+(defvar notif-count 0)
+(defvar expanded_id "")
+(defvar hide-notif-popups false)
+
+(defwindow notifs
+        :geometry (geometry :x "0px"
+                            :y "8%"
+                            :width "1px"
+                            :height "12%"
+                            :anchor "bottom left"
+                    )
+        :stacking "overlay"
+        :exclusive "false"
+        :namespace "eww_bar_bottom"
+        :hexpand true
+        :vexpand false
+        (notifications)
+)
+
+(defwidget notifications []
+    (box :halign "start" :vexpand true 
+        (box :orientation "v" :space-evenly false :valign "end" :class "notifcenter" :height 640 :width 320
+            (box :space-evenly false
+                (button :class "button${hide-notif-popups ? "" : "-active"}" :timeout "16s" :onclick "../settings/bin/notif.sh toggle-mode" "${hide-notif-popups ? "󱙍" : "󰍡"}    Popups")
+                (button :class "button-warn" :timeout "16s" :onclick "makoctl dismiss -a"     "    Dismiss All")
+            )
+            (scroll :vscroll true :width 300 :height 500
+                (box :orientation "v" :halign "start" :space-evenly false
+                    (for notif in notifs
+                        (eventbox :onclick "${EWW_CMD} update expanded_id=${notif.id == expanded_id ? "" : "${notif.id}"}"
+                            (box :class "notif${notif.id == expanded_id ? "-active" : ""}${notif.urgency == 2 ? "-important" : ""}" :width 290 :hexpand true :halign "start" :orientation "v" :space-evenly false
+                                (box  :hexpand true :space-evenly false
+                                (label :markup "${notif.title}" :wrap true :justify "left" :hexpand true)
+                                (button :timeout "16s" :onclick "makoctl dismiss -n ${notif.id}" "")
+                                )
+                                (label :markup "${notif.text}" :wrap true :justify "left")
+                                (box :visible "${notif.id == expanded_id}" :orientation "v" :space-evenly false :valign "start" :hexpand true
+                                    (image :path "${notif.icon?: "/usr/share/icons/Tela/scalable/apps/preferences-desktop-notification.svg"}" :image-width 160 :image-height 90 :visible "${notif.icon != ""}")
+                                    (for action in "${notif?.["actions"]}"
+                                        (button :class "notif-button" :timeout "16s" :onclick "makoctl invoke -n ${notif.id} ${action.action}& disown"
+                                            (label :markup "${action.name}" :limit-width 10)
+                                        )
+                                    )
+                                    (box :space-evenly false :hexpand true
+                                        (box :hexpand true
+                                            (label :text "${notif.level?: "Normal"} " :class "notif_label${notif.urgency}" :halign "start" )
+                                        )
+                                        (label :halign "end" :text "${notif.name}")
+                                    )
+                                )
+                            )   
+                        )
+                    )
+                )
+            )
+        )
+    )
+)

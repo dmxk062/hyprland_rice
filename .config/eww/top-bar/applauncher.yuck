@@ -1,0 +1,39 @@
+(defvar apps "[]")
+(defwindow app_launcher
+    :monitor 0
+    :geometry (geometry :x "0px"
+                        :y "1%"
+                        :width "32px"
+                        :height "32px"
+                        :anchor "top center"
+                        )
+    :stacking "fg"
+    :exclusive false
+    :namespace "eww_popup"
+    :hexpand false
+    :vexpand false
+    (applauncher)
+
+                        )
+(defwidget launcher [app]
+(button :timeout "16s" :onclick "${app.exec}& disown" :class "app_button" :tooltip "${app.description}"
+(image :path "${app.icon.image}" :image-width 64 :image-height 64 ))
+
+
+)
+(defwidget applauncher []
+(box :orientation "v" :class "app_launcher_popup"  :space-evenly false 
+(box :space-evenly false :hexpand true :class "app_launcher_header" 
+(box :halign "start" :hexpand true :space-evenly false
+(button :tooltip "${window[0].float ? "Click to Tile ${window[0].title}" :"Click to Float ${window[0].title}"}" :class "${window[0].float ? "winbutton-float" : "winbutton-off"}" :onclick "hyprctl dispatch togglefloating pid:${window[0].pid}" "" )
+(button :tooltip "${window[0].fullscreen ? "Click to Shrink ${window[0].title}" :"Click to Expand ${window[0].title}"}" :class "${window[0].fullscreen ? "${window[0].mode == 1 ? "winbutton-maximized" : "winbutton-pinned"}" : "winbutton-regular" }" :onclick "hyprctl dispatch fullscreen 1" :onrightclick "hyprctl dispatch fullscreen 0" "${window[0].fullscreen ? "${ window[0].mode == 1 ? "   Maximized" : "    Fill"}" : "" }")
+(button :tooltip "${window[0].float ? (window[0].pin ? "Click to Unpin ${window[0].title}" : "Click to Pin ${window[0].title}" ) : "Can't pin non Floating Windows"}" :class "${window[0].float ? (window[0].pin ? "winbutton-pinned" : "winbutton-off") : "winbutton-na"}" :onclick "hyprctl dispatch pin pid:${window[0].pid}" "󰐃" )
+(button :tooltip "Click to Close ${window[0].title}" :class "winbutton-close" :onclick "hyprctl dispatch killactive" "" )
+)
+(button :onclick "bin/applauncher.sh"  :class "winbutton-off" :tooltip "Close the Launcher" "")
+)
+(box (launcher :app "${apps[0]}")(launcher :app "${apps[1]}")(launcher :app "${apps[2]}")(launcher :app "${apps[3]}"))
+(box (launcher :app "${apps[4]}")(launcher :app "${apps[5]}")(launcher :app "${apps[6]}")(launcher :app "${apps[7]}"))
+(box (launcher :app "${apps[8]}")(launcher :app "${apps[9]}")(launcher :app "${apps[10]}")(launcher :app "${apps[11]}"))
+)
+)

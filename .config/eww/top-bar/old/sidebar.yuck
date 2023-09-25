@@ -1,0 +1,23 @@
+(defvar wifi-status-info "[]")
+(defvar bt_power "[]")
+(defvar sink-icons "[]") ;; icons(muted and unmuted) for the current sink/source
+(defvar source-icons "[]") 
+(defvar mute_out "") ;; ouput mute state
+(defvar mute_in "")
+(defvar sunset 0 )
+(defvar idle 1)
+(defvar kbd 0)
+(defvar volume_out 0)
+(defvar volume_in 0)
+(defwidget sidebar-button []
+(box :orientation "h" :space-evenly false
+(eventbox :onclick "scripts/sidebar.sh"
+(box :orientation "h" :class "menubox" :space-evenly false
+(label :text "${wifi-status-info.icon} ${ wifi-status-info.state == "on" ? "${wifi-status-info.SSID}" : ""}" :class "${wifi-status-info.state == "on" ? "menu-on" : "menu-off"}")
+(label :text "${bt_power == true ? "󰂯" : "󰂲"}" :class "menu-off")
+(button  :onclick "scripts/aux.sh toggle-mute out"  :class "${mute_out == true ? "menu-off" :"menu-on"}" "${mute_out == true ? sink-icons.muted : sink-icons.unmuted} ${volume_out}%")
+(button  :onclick "scripts/aux.sh toggle-mute in"  :class "${mute_in == true ? "menu-off" :"menu-on"}" "${mute_in == true ? source-icons.muted : source-icons.unmuted} ${volume_in}%")
+)
+)
+)
+)

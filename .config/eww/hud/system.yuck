@@ -1,0 +1,46 @@
+(defwindow system
+        :geometry (geometry :x "0px"
+                            :y "2%"
+                            :width "1px"
+                            :height "12%"
+                            :anchor "top right"
+                    )
+        :stacking "overlay"
+        :exclusive "false"
+        :namespace "eww_bar_bottom"
+        :hexpand true
+        :vexpand false
+        (system)
+)
+(defpoll mem :interval "4s" "bin/mem.awk /proc/meminfo")
+(defpoll gpu :interval "4s" "bin/gpu.sh")
+(defpoll net :interval "3s" "bin/netspeed.sh")
+(defpoll cpu :interval "4s" "bin/cpu.sh")
+(defvar system_overview_shown true)
+(defwidget system []
+(eventbox :onclick "${EWW_CMD} update system_overview_shown=${system_overview_shown ? "false" : "true"}" 
+    (box :halign "end" :vexpand true :visible system_overview_shown
+        (box :orientation "v" :space-evenly false :valign "end" :class "system_overview"  :width 320
+        (box :class "sliderbox_overview" :orientation "v"
+        (label :class "inlay_label" :text "󰍛    Memory: ${mem.mem.nice.used}/${mem.mem.nice.total}")
+            (scale :value "${mem.mem.raw.perc}" :class "slider-yellow" :active false)
+        (label :class "inlay_label" :text "    Swap: ${mem.swap.nice.used}/${mem.swap.nice.total}")
+            (scale :value "${mem.swap.raw.perc}" :class "slider-cyan" :active false)
+        (label :class "inlay_label" :text "󰢮    Video Memory: ${gpu.used_nice}/${gpu.total_nice}")
+            (scale :value "${gpu.perc}" :class "slider-red" :active false)
+        )
+        (box :class "sliderbox_overview" :orientation "v"
+        (label :class "inlay_label" :text "    Upload Speed: ${net.nice.up == 0 ? "None" : "${net.nice.up}/s"}")
+            (scale :value "${net.raw.up}" :class "slider-cyan" :min 0 :max 4000 :active false)
+        (label :class "inlay_label" :text "    Download Speed: ${net.nice.down == 0 ? "None" : "${net.nice.down}/s"}")
+            (scale :value "${net.raw.down}" :class "slider-blue" :min 0 :max 19200 :active false)
+        )
+        (box :class "sliderbox_overview" :orientation "v"
+        (label :class "inlay_label" :text "󰻠    CPU Usage: ${cpu.usage}% at ${cpu.temp}°C")
+            (scale :value "${cpu.usage}" :class "${cpu.temp > 30 ? (cpu.temp > 50 ? (cpu.temp > 60 ? "slider-red" : "slider-orange") : "slider-yellow") : "slider-green"}" :min 0 :max 100 :active false)
+        (label :class "inlay_label" :text "󰢮    GPU Usage: ${gpu.utilization}% at ${gpu.temp}°C")
+            (scale :value "${gpu.utilization}" :class "${gpu.temp > 30 ? (gpu.temp > 50 ? (gpu.temp > 60 ? "slider-red" : "slider-orange") : "slider-yellow") : "slider-green"}" :min 0 :max 100 :active false)
+        )
+        )
+    )
+))

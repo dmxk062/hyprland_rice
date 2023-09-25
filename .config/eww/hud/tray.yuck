@@ -1,0 +1,5 @@
+(defvar tray_open false)
+(defwidget tray_button []
+(button :class "button" :timeout "16s" :onclick "${EWW_CMD} update tray_open=${tray_open ? "false" : "true"}" "${tray_open ? " 󱊔" : "󱊔  "}")
+
+)

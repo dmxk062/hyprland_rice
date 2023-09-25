@@ -1,0 +1,33 @@
+(defvar invol 0)
+(defvar inmute false)
+(defpoll inputsource :interval "5s" "../panel/bin/sinksource.sh list source|jq '.[]|select(.active)'")
+(defwindow in_popup
+    :geometry (geometry :x 0
+                        :y "10%"
+                        :width "1%"
+                        :height "4%"
+                        :anchor "center bottom"
+                )
+    :stacking "overlay"
+    :namespace "eww_popup"
+    (inputscale)
+)
+
+(defwidget inputscale []
+(box :space-evenly false
+:class "popup-box"
+;; (circular-progress :class "${outmute ? "circle-mute" : "circle-unmute"}" :value "${outvol}" :thickness 8
+;; (box :space-evenly false :class "circlebox" :orientation "v"
+;; (label :text "${outmute || outvol == 0 ? "󰓄 " : "󰓃"}" :class "${outmute ? "icon-mute" : "icon-unmute"}" :vexpand true)
+;; (label :text "${outvol}%" :class "text")
+;; )
+;;
+;;
+;; )
+(label :text "${inmute ? "󰝟" : (invol > 70 ? "󰕾" : ( invol > 33 ? "󰖀" : "󰕿"))}" :class "volicon${inmute ? "-muted" : ""}")
+(box :orientation "v"
+(label :text "In: ${inputsource.name}" :limit-width 20)
+(scale :value "${invol}" :class "inslider${inmute ? "-muted" : ""}")
+)
+(label :text "${invol}%" :class "vollabel")
+))

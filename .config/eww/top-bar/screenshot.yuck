@@ -1,0 +1,18 @@
+(defvar screenshot_controls false)
+(defwidget screenshot []
+(box :orientation "h" :space-evenly false
+(button :onclick "bin/toggle.sh screenshot_controls" :class "winbutton-off" :tooltip "Screenshots" "󰹑")
+(revealer :reveal screenshot_controls :transition "slideright"
+(box :orientation "h" 
+
+(button :tooltip "Take a screenshot of a monitor and save it to a file" :onclick "../panel/bin/screenshot.sh monitor file" :class "winbutton-blue" :timeout "128s" "󰹑  ")
+(button :tooltip "Take a screenshot of a monitor and copy it to the clipboard" :onclick "../panel/bin/screenshot.sh monitor clip" :class "winbutton-float" :timeout "128s" "󰹑  󰅇")
+(button :tooltip "Take a screenshot of an area and save it to a file" :onclick "sleep 0.3&&../panel/bin/screenshot.sh selection file" :class "winbutton-pinned" :timeout "128s" "󱣴  ")
+(button :tooltip "Take a screenshot of an area and copy it to the clipboard" :onclick "sleep 0.3&&../panel/bin/screenshot.sh selection clip" :class "winbutton-maximized" :timeout "128s" "󱣴  󰅇")
+
+
+
+)
+)
+
+))

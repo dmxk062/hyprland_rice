@@ -1,0 +1,14 @@
+- system performance:
+    - [x] battery
+    - [x] cpu
+    - [x] gpu
+    - [x] mem
+    - [x] swap
+    - [x] vram
+    - [x] network
+- [x] notifications:
+- [x] mpris???
+- [x] launchers:
+- [x] power off, on, etc
+- [ ] screenshot
+

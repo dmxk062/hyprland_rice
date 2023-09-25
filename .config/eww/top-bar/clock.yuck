@@ -1,0 +1,11 @@
+(defpoll time :interval "1s" "date '+%H:%M'")
+(defpoll det_time :interval "1s" "date '+%a, %d.%m.%Y 
+%H:%M:%S'")
+
+(defwidget clock []
+    (box :space-evenly false :class "notifbox"
+        (button :class "clock" :tooltip "${det_time}" :onclick "gnome-clocks& disown" "${time}")
+        (button :onclick "../settings/bin/notif.sh toggle-mode" :class "notif-${notif-count > 0 ? "active" : "inactive"}${hide-notif-popups ? "-muted" : ""}" :tooltip "${notif-count > 0 ? "${notifs[0].name}:
+${notifs[0].title}" : "No Notifications"}" "${hide-notif-popups ? "󰂛${notif-count > 0 ? "  ${notif-count}" : ""}" : "${notif-count > 0 ? "󱅫  ${notif-count}" : "󰂚"}"}")
+))
+

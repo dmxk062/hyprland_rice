@@ -1,0 +1,20 @@
+(defpoll mpris_meta :interval "4s" "bin/mpris.sh metadata")
+(defpoll position :interval "4s" "bin/mpris.sh pos")
+(deflisten mpris_state "bin/mpris.sh monitor")
+(defwidget mpris []
+    (box :space-evenly false
+        (overlay :halign "start" 
+        (image :path "${mpris_meta.image ?: "/usr/share/icons/Tela/scalable/apps/totem.svg"}" :image-width 64 :image-height 64 )
+        (button :onclick "${mpris_state.active ? "playerctl play-pause" : "g4music & disown"}" :class "mpris_button" "${mpris_state.playing == true ? "" : "" }")
+        )
+        (box :orientation "v" :space-evenly false :tooltip "${mpris_meta.artist ?: "Artist not known"}
+${mpris_meta.title ?: "No Title"}
+${replace(position.pos / 60,"\\..*","")}:${round(position.pos %60,0)} / ${replace(position.length/60,"\\..*","")}:${round(position.length%60,0)}"
+            (label :text "${mpris_meta.artist ?: "Artist not known"}" :class "inlay_text" :limit-width 32)
+            (label :text "${mpris_meta.title ?: "No Title"}" :class "inlay_text" :limit-width 32)
+            (scale :visible "${position.length > 1}" :value "${position.progress}" :class "slider" :onchange "bin/mpris.sh jump {}")
+
+        )
+    )
+
+)

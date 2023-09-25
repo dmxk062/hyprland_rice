@@ -1,0 +1,22 @@
+(include "launchers.yuck")
+(include "toggles.yuck")
+(include "media.yuck")
+(defvar show_notifs false)
+(defvar show_system false)
+(defwidget footer []
+    (centerbox :hexpand true :class "footer" :space-evenly false
+        (box :space-evenly false :halign "start"
+        (box :space-evenly false :class "inlay" :halign "start"
+            (button :class "button${show_notifs ? "-active" : ""}" :onclick "bin/notifcenter.sh& disown" :timeout "16s" "${notif-count > 0 ? "${notif-count}" : ""}   ${show_notifs ? "󰍡" : "󱙍"}")
+            (mpris)
+        )
+        )
+        (launcher)
+        (box :orientation "h" :space-evenly false :halign "end"
+            (button :class "button${show_system ? "-active" : ""}" :onclick "bin/overview.sh& disown" :timeout "16s" "󰨇")
+            (toggles)
+            (button :class "button-s" :onclick "bin/toggle.sh" :timeout "16s" "")
+        )
+
+    )
+)

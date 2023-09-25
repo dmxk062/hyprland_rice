@@ -1,0 +1,70 @@
+(defvar wlans "[]")
+(defvar wlan_power false)
+(defvar wifi_search_icon "󰑓")
+(deflisten wifi_status "bin/wlan.sh listen")
+(defvar wifi_password_reveal false)
+(defvar connect_ssid "")
+(defvar wifi_passwd "")
+(defvar empty "")
+(defvar show_qr true)
+
+(defwidget wifi_section []
+    (box :visible "${selected_section == 6}" :class "section_box" :hexpand true :orientation "h" :space-evenly false
+        (box :halign "center" :orientation "v" :space-evenly false :class "sidebar"
+            (box :orientation "v" :space-evenly false 
+                (box :space-evenly false
+                    (button :timeout "256s" :onclick "bin/wlan.sh toggle&&sleep 1&&bin/wlan.sh upd" :class "button${wlan_power ? "-active" : ""}" "    Power")
+                    (button :timeout "256s" :onclick "bin/wlan.sh upd" :class "button" "${wifi_search_icon}    Reload")
+                )
+            )
+            (label :class "sidebar_text" :text "Current: ${wifi_status.ssid?: "No Network"}" :limit-width 32)
+            (label :text "Signal Strength: ${wifi_status.strength ?: 0}%" :class "sidebar_text")
+            (box :space-evenly false :halign "center" :orientation "v"
+                (box :class "circle_box" :orientation "v" :space-evenly false
+                    (circular-progress :value "${wifi_status.strength?: 0}" :thickness 8 :class "circle"
+                        (label :class "circle_label${wifi_status.ssid == "" ? "-off" : ""}" :text "${wifi_status.icon ?: "󰤭"}")
+                    )
+                )
+            )
+            (box :visible "${wifi_status.ssid != "" ? true : false}" :orientation "v" :space-evenly false
+                (button :class "button" :onclick "${EWW_CMD} update show_qr=${show_qr ? "false" : "true"}" "    QR Code")
+                (box :visible show_qr
+                    (image :path "${wifi_status.qrpath}" :image-width 180 :image-height 180) 
+                )
+            )
+        )
+        (box :orientation "v" :space-evenly false :class "sidebar_extension" :visible "${wifi_password_reveal && wlan_power}"
+            (label :class "sidebar_text" :text "Password for: ${connect_ssid}" :limit-width 19)
+            (input :timeout "128s" :onchange "${EWW_CMD} update wifi_passwd='{}'" :onaccept "bin/wlan.sh connect '${connect_ssid}' true '${wifi_passwd}'& disown" :password true :class "input-h" :value wifi_passwd)
+            (box 
+                (button :timeout "16s" :onclick "${EWW_CMD} update wifi_passwd=''&&${EWW_CMD} update wifi_password_reveal=false" :class "button" "Cancel")
+                (button :timeout "16s" :onclick "bin/wlan.sh connect '${connect_ssid}' true '${wifi_passwd}'& disown" :class "button-active" "Connect")
+            )
+
+        )
+        (box :visible wlan_power :halign "end"
+            (scroll :vscroll true :height 430 :width 400 :visible wlan_power
+                (box :space-evenly false :halign "center"
+                    (box :orientation "v" :space-evenly false
+                        (for wifi in wlans
+                            (box :class "card" :orientation "h" :space-evenly false :spacing 8
+                                (box :orientation "v" :space-evenly false :valign "center"
+                                    (circular-progress :value "${wifi.strength?: 0}" :thickness 6 :class "circle" :tooltip "${wifi.strength}%"
+                                        (label :class "circle_label_small" :text "${wifi.strength_icon ?: "󰤭"}")
+                                    )
+                                )
+                                (box :orientation "v" :space-evenly false :valign "center" :hexpand true
+                                    (label :class "card-label" :text "${wifi.ssid}" :limit-width 20)
+                                    (box :space-evenly false :halign "end"
+                                        (button :class "button${wifi.ssid == wifi_status.ssid ? "-active" : ""}" :timeout "256s" :onclick "${wifi.password ? "${EWW_CMD} update wifi_password_reveal=true&&${EWW_CMD} update connect_ssid=${wifi.ssid}": "bin/wlan.sh connect ${wifi.ssid} false"}" "Connect${wifi.ssid == wifi_status.ssid ? "ed" : ""}")
+                                        (label :class "button${wifi.password ? "" : "-nice"}" :text "${wifi.password ? "󰒘    ${wifi.security}" : "󰦞    No Password"}")
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
