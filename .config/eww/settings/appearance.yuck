@@ -4,14 +4,15 @@
 
 
 ;; all the appearance options rn:
-(defvar nightlight false)
+(defvar nightlight false) ;; wlsunset
 (defvar blur true)
 (defvar blur_xray false)
-(defvar opacity true)
+(defvar opacity true) ;; only for kitty, as that is my only opaque app
 (defvar rounding true)
 (defvar border true)
 (defvar special_blur false)
 (defvar shadow true)
+;; both of these are on off, not values
 (defvar gaps_in true)
 (defvar gaps_out true)
 

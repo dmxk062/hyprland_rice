@@ -8,9 +8,4 @@ function set(){
     
     eval "$eww update blur_${keywd}=$1"
 }
-
-case $1 in
-    *)
-        set $1 $2;;
-esac
-
+set $1 $2;;

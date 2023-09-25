@@ -6,7 +6,7 @@
 (defvar natural_scroll false)
 (defvar osk false)
 
-;; tunables
+;; my default settings from hyprland
 (defvar mouse_sensitivity 50)
 (defvar repeat_rate 25)
 (defvar repeat_delay 600)

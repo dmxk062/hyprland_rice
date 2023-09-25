@@ -86,7 +86,7 @@ icons_port='{
 "hdmi-output-3":"󰽟"
 }'
 
-list_source() {
+list_sources() {
     pactl --format=json list sources |jq --argjson icons "$icons_in" --argjson icons_g "$icons_in_g" --argjson icons_port "$icons_port" 'map(. + { icon: (if .properties."device.icon_name" == null 
 then $icons["microphone"] 
 else $icons[.properties."device.icon_name"] end),
@@ -103,7 +103,7 @@ ports: (.ports | map({name: .name,
     icon: $icons_port[.name]}))})'|jq -Mc 'map({name:.description,id:.name,icon:.icon, icon_g: .icon_g,ports: .ports,port: .port, volume: .volume, mute: .mute})'|jq -Mc --arg id "$(pactl get-default-source)" 'map(. + {active: (if .id == $id then true else false end)})'
 
 }
-list_sink() {
+list_sinks() {
 pactl --format=json list sinks |jq --argjson icons "$icons_out" --argjson icons_g "$icons_out_g" --argjson icons_port "$icons_port" 'map(. + { icon: (if .properties."device.icon_name" == null 
 then $icons["speaker"] 
 else $icons[.properties."device.icon_name"] end),
@@ -127,8 +127,9 @@ set_sink(){
     pactl set-default-sink $1
 }
 update(){
-    eww -c $HOME/.config/eww/settings update "$@"
-    eww -c $HOME/.config/eww/top-bar update "$@"
+    eww -c $HOME/.config/eww/settings update "$@"&
+    eww -c $HOME/.config/eww/top-bar update "$@"&
+    eww -c $HOME/.config/eww/popups update "$@"&
 }
 case $1 in
     upd)

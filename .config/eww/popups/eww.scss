@@ -106,27 +106,3 @@ $xlarge: 2px 17px 2px 13px;
     font-size: 24px;
     min-width: 5rem;
 }
-.circlebox {
-    margin: 64px;
-}
-.circlebox-smaller {
-    margin: 48px;
-}
-.text {
-    color: $snow2;
-}
-
-
-.circle-mute,.circle-unmute,.circle-bright {
-    min-height: 40px;
-    background-color: $polar2;  
-}
-.circle-mute {
-    color: $polar3;
-}
-.circle-unmute {
-    color: $dcyan;
-}
-.circle-bright {
-    color: $yellow;
-}
