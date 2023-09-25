@@ -1,0 +1,41 @@
+configuration {
+font: "Torus Pro 12";
+show-icons: true;
+terminal: "kitty";
+icon-theme: "Tela-dark";
+drun-display-format: "{name}";
+case-sensitive: false;
+cycle: false;
+scroll-method: 1;
+cache-dir: "/home/dmx/.cache/";
+window-thumbnail: true;
+steal-focus:false;
+drun-use-desktop-cache: true;
+drun-reload-desktop-cache: true;
+kb-mode-next: "Tab";
+kb-element-next: "";
+kb-row-down:"Down,Alt+j";
+kb-row-up:"Up,Alt+k";
+  filebrowser {
+      directories-first: true;
+      sorting-method:    "name";
+  }
+line-margin: 10;
+    modes: [drun, window, combi];
+    combi-modes: [run,ssh];
+    display-ssh:    " ";
+    display-run:    " ";
+    display-drun:   "󱓞";
+    display-window: "";
+    display-combi:  "";
+    display-calc: "";
+    display-emoji: "󰞅";
+    display-filebrowser: "Files";
+    show-icons:     true;
+}
+@theme "~/.config/rofi/nord.rasi"
+window {
+	width: 15%;
+    height: 30%;
+}
+
