@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Eww System Settings;
+Exec=eww -c /home/dmx/.config/eww/settings open settings --screen 0
+Icon=systemsettings
+Type=Application
